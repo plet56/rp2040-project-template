@@ -16,18 +16,16 @@ use rp_pico as bsp;
 // use sparkfun_pro_micro_rp2040 as bsp;
 
 use bsp::hal::{
-    clocks::{init_clocks_and_plls, Clock},
+//    clocks::{init_clocks_and_plls, Clock},
     pac,
     sio::Sio,
-    watchdog::Watchdog,
+//    watchdog::Watchdog,
 };
 
 #[entry]
 fn main() -> ! {
     info!("Program start");
     let mut pac = pac::Peripherals::take().unwrap();
-    let core = pac::CorePeripherals::take().unwrap();
-    let mut watchdog = Watchdog::new(pac.WATCHDOG);
     let sio = Sio::new(pac.SIO);
 
 
@@ -47,9 +45,12 @@ fn main() -> ! {
 
     let butt_pin = pins.gpio17.into_pull_up_input();
 
+    //info!("Listening on TCP:1234....");
+
     loop {
         if butt_pin.is_high().unwrap() {
             led_pin.set_high().unwrap();
+            info!("Bedumbedumdeummmmmmm");
         } else {
             led_pin.set_low().unwrap();
         }
